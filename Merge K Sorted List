@@ -1,0 +1,27 @@
+import heapq
+
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        # Dummy node to simplify the head of the merged list
+        dummy = ListNode(0)
+        curr = dummy
+        min_heap = []
+        
+        # 1. Add the head of each list to the heap
+        # Store as (value, list_index, node_object) 
+        # list_index acts as a tie-breaker so we don't compare ListNode objects
+        for i, node in enumerate(lists):
+            if node:
+                heapq.heappush(min_heap, (node.val, i, node))
+        
+        # 2. Extract the minimum and move forward
+        while min_heap:
+            val, i, node = heapq.heappop(min_heap)
+            curr.next = node
+            curr = curr.next
+            
+            # If the extracted node has a next node, push it into the heap
+            if node.next:
+                heapq.heappush(min_heap, (node.next.val, i, node.next))
+                
+        return dummy.next
