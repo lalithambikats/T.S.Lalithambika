@@ -1,0 +1,19 @@
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # Merge the two arrays and sort the result
+        merged = nums1 + nums2
+        merged.sort() #
+
+        n = len(merged)
+        # If the length is odd, the median is the middle element
+        if n % 2 == 1:
+            # The middle index is n // 2
+            return float(merged[n // 2])
+        # If the length is even, the median is the average of the two middle elements
+        else:
+            # The two middle indices are n // 2 - 1 and n // 2
+            mid1 = merged[n // 2 - 1]
+            mid2 = merged[n // 2]
+            return (mid1 + mid2) / 2.0
+
+ 
