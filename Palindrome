@@ -1,0 +1,15 @@
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        
+        # Negative numbers are not palindromes (e.g., -121 reads 121- backward).
+        if x < 0:
+            return False
+        
+        # Convert the integer to a string.
+        s = str(x)
+        
+        # Compare the original string with its reversed version.
+        # s[::-1] creates a reversed copy of the string s.
+        return s == s[::-1]
+
+        
