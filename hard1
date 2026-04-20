@@ -1,0 +1,31 @@
+from collections import Counter
+from typing import List
+
+class Solution:
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        # Count the frequency of each number
+        counts = Counter(nums)
+        
+        def backtrack(current_permutation):
+            # Base case: if the current permutation is complete
+            if len(current_permutation) == len(nums):
+                res.append(list(current_permutation))
+                return
+            
+            # Iterate through each unique number available
+            for num in counts:
+                if counts[num] > 0:
+                    # Choose: Add the number to the path
+                    current_permutation.append(num)
+                    counts[num] -= 1
+                    
+                    # Explore: Recursively build the rest
+                    backtrack(current_permutation)
+                    
+                    # Un-choose: Backtrack to try the next unique number
+                    counts[num] += 1
+                    current_permutation.pop()
+        
+        backtrack([])
+        return res
